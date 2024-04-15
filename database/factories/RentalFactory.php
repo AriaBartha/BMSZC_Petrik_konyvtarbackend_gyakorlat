@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Book;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -16,8 +17,11 @@ class RentalFactory extends Factory
      */
     public function definition(): array
     {
+        $allBookIds = Book::all()->pluck('id');
         return [
-            //
+            "book_id" => fake()->randomElement($allBookIds),
+            "start_date" => fake()->dateTimeBetween('now', '+2 weeks'),
+            "end_date" => fake()->dateTimeBetween('now', '+4 weeks'),
         ];
     }
 }
